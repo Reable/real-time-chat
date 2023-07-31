@@ -52,5 +52,5 @@ export const AuthContextProvider = ({ children }) => {
 		>
 			{children}
 		</AuthContext.Provider>
-	)
+	);
 }
