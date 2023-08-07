@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 5050;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/users', require('./routes/user'))
+app.use('/api/users', require('./routes/user'));
+app.use('/api/chats', require('./routes/chat'));
+app.use('/api/messages', require('./routes/message'));
 
 mongoose.connect(process.env.DB_URL, {
 	useNewUrlParser: true, 

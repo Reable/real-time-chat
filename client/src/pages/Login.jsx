@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useCallback, useContext } from 'react'
 import {Alert, Button, Form, Row, Col, Stack} from 'react-bootstrap'
+import { AuthContext } from '../context/AuthContext';
 
 export default function Login () {
+  
+  const { 
+    loginInfo, updateLoginInfo,
+    loginUser, loginError, isLoginLoading,
+  } = useContext(AuthContext);
+
+  const updateInfo = useCallback((key) => {
+    return useCallback((event) => {
+      loginInfo[key] = event.target.value;
+      updateLoginInfo(loginInfo)
+    }, [])
+  }, [])
+
   return (
 	  <>
-      <Form>
+      <Form onSubmit={loginUser}>
         <Row style={{
           height: '90vh',
           justifyContent: "center",
@@ -14,16 +28,16 @@ export default function Login () {
             <Stack gap="3">
               <h2>Login</h2>
 
-              <Form.Control type='email' placeholder='email'/>
-              <Form.Control type='password' placeholder='password'/>
+              <Form.Control type='email' placeholder='email' onChange={updateInfo('email')}/>
+              <Form.Control type='password' placeholder='password' onChange={updateInfo('password')}/>
               
               <Button variant='primary' type='submit' >
-                Login
+                { isLoginLoading ? 'Authorization' : 'Login' }
               </Button>
 
-              <Alert variant='danger'>
-                <p>Error</p>
-              </Alert>
+              { loginError?.error && <Alert variant='danger'>
+                <p>{loginError.message}</p>
+              </Alert> }
             </Stack>  
           </Col>
         </Row>

@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useCallback, useContext} from 'react';
 import React from 'react'
 import {Alert, Button, Form, Row, Col, Stack} from 'react-bootstrap'
 import { AuthContext } from '../context/AuthContext';
@@ -10,12 +10,12 @@ export default function Register(){
     registerUser, registerError, isRegisterLoading,
   } = useContext(AuthContext);
 
-  const updateRegisterData = (key) => {
-    return function (event) {
+  const updateRegisterData = useCallback((key) => {
+    return useCallback((event) => {
       registerInfo[key] = event.target.value;
       updateRegisterInfo(registerInfo);
-    }
-  }
+    }, [])
+  }, [])
 
   return (
 	  <>
