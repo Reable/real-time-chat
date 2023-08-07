@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import NavBar from './components/NavBar'
 import { AuthContext } from './context/AuthContext';
+import { ChatContextProvider } from './context/ChatContext';
 
 export default function App() {
   
@@ -16,7 +17,7 @@ export default function App() {
 
 
   return (
-    <>
+    <ChatContextProvider user={user}>
       <NavBar/>
       <Container>
         <Routes>
@@ -26,7 +27,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" />}/>
         </Routes>
       </Container>
-    </>
+    </ChatContextProvider>
   )
 }
 

@@ -53,7 +53,7 @@ const login = async (req, res) => {
 
 		const token = createToken(user._id);
 
-		res.status(200).json({message: "Success", name: user.name, email, token});
+		res.status(200).json({message: "Success", name: user.name, email, token, _id: user._id});
 	} catch(error){
 		console.error(error)
 		res.send(500).json({ error });	
@@ -68,7 +68,7 @@ const findUser = async (req, res) => {
 
 		if(!user) return res.status(400).json({ message: 'User not found' });
 
-		res.status(200).json({ user });
+		res.status(200).json(user);
 
 	} catch(error) {
 		console.error(error)
@@ -81,7 +81,7 @@ const getUser = async (req, res) => {
 	try{
 		const users = await userModel.find();
 
-		res.status(200).json({ users });
+		res.status(200).json(users);
 	} catch(error) {
 		console.error(error)
 		res.send(500).json({ error });	

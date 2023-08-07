@@ -22,3 +22,18 @@ export const postRequest = async (url, body) => {
 
 	return data;
 };
+
+export const getRequest = async (url, params) => {
+	const response = await fetch(`${baseUrl}${url}${params && '/'+params}`)
+
+	const data = await response.json();
+
+	if(!response.ok){
+		return {
+			error: true,
+			message: data.message
+		}
+	}
+
+	return data;
+};
